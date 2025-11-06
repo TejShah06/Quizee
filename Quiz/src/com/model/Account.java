@@ -8,11 +8,11 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 public class Account {
-	String user = "root"; 
-	String password="";
-	String url="jdbc:mysql://localhost:3306/";
-	String dbname="quiz"; 
-	String driver="com.mysql.jdbc.Driver";
+    String user = "root"; 
+    String password="";
+    String url="jdbc:mysql://localhost:3306/";
+    String dbname="quiz"; 
+    String driver="com.mysql.cj.jdbc.Driver";
 
 	Connection con;
 	
@@ -203,8 +203,9 @@ public class Account {
 
 	public void dbConnect() throws ClassNotFoundException, SQLException{
 		
-		Class.forName(driver);
-	    con = DriverManager.getConnection(url+dbname,user,password); 
+        Class.forName(driver);
+        // For MySQL 8+, include database in URL and recommended params
+        con = DriverManager.getConnection(url+dbname+"?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",user,password); 
 	} 
 	
 	public void dbClose() throws SQLException{ 
